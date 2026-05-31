@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Connect and share with your friends with urushya connect. Secure p2p connection with custom file encryption." />
+    <meta name="keywords"
+        content="recording, API, video, connection, calling, cloud, friends, sharing, encryption, file, utility, urushya" />
+    <title>
+        Urushya - connect & share with friends
+    </title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <meta name="google-site-verification" content="pg3vs60oNknd1Yy-NkThtEM57uKDLJftWBzm064Buoo" />
+</head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0K09C7FV47"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-0K09C7FV47");
+</script>
+
+<body class="rubik-text prim-bg">
+    <header class="sec-bg">
+        <img src="/logo.png" alt="urushya" width="70px" class="pointer" />
+    </header>
+    <span id="notificationSpan" class="flex flex-column sec-bg d-none"></span>
+    <main>
+        <section id="login" class="flex">
+            <h1>Urushya - connect & share freely</h1>
+            <input type="text" id="email" class="btn sec-bg" placeholder="email" autocomplete="off" />
+            <input type="password" id="password" class="btn sec-bg" placeholder="password" autocomplete="off" />
+            <button class="btn sec-bg pointer" id="loginBtn">Login</button>
+        </section>
+        <section id="checks" class="flex">
+            <label for="screenCheck" class="pointer">Screen: </label>
+            <input type="checkbox" class="pointer" id="screenCheck" />
+            <label for="audioCheck" class="pointer">Audio : </label>
+            <input type="checkbox" class="pointer" id="audioCheck" />
+            <label for="videoCheck" class="pointer">Video: </label>
+            <input type="checkbox" class="pointer" id="videoCheck" checked />
+            <label for="faceCamCheck" class="pointer">Face Camera: </label>
+            <input type="checkbox" class="pointer" id="faceCamCheck" />
+            <label for="autoSaveLocalCheck" class="pointer">Save on this device:
+            </label>
+            <input type="checkbox" class="pointer" id="autoSaveLocalCheck" checked />
+            <label for="autoSaveDBCheck" class="pointer">Save on database(logged in):
+            </label>
+            <input type="checkbox" class="pointer" id="autoSaveDBCheck" />
+            <button class="btn sec-bg" id="getStreamBtn">Start</button>
+        </section>
+        <section id="connect" class="flex">
+            <input type="text" id="newID" class="btn sec-bg" placeholder="Enter your peer ID" autocomplete="off" />
+            <input type="password" id="encpass" class="btn sec-bg" placeholder="encryption password"
+                autocomplete="off" />
+            <div>My ID: <span id="myID">Not Connected</span></div>
+            <div>
+                <i class="fa-solid fa-comment"></i>:
+                <span id="connPeer">Not Connected</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-video"></i>:
+                <span id="callPeer">Not Connected</span>
+            </div>
+            <input type="text" id="remoteID" class="btn sec-bg" placeholder="Enter remote ID" autocomplete="off" />
+            <button class="btn sec-bg" id="connBtn" disabled>
+                Connect
+            </button>
+            <button class="btn sec-bg" id="callBtn" disabled>Call</button>
+        </section>
+        <section id="vidplayers" class="flex">
+            <video id="myPlayer" autoplay muted></video>
+            <video id="othPlayer" autoplay></video>
+        </section>
+        <section id="chat" class="flex flex-column">
+            <div id="messages" class="messageContainer flex flex-column"></div>
+            <div id="sendForm" class="flex">
+                <input type="file" id="fileInput" class="btn sec-bg" autocomplete="off" />
+                <input type="text" id="textInput" class="btn sec-bg" enterkeyhint="send" placeholder="Message"
+                    autocomplete="off" />
+                <button type="submit" class="btn sec-bg" id="sendBtn" disabled>
+                    Send
+                </button>
+            </div>
+        </section>
+        <section id="bot" class="flex flex-column">
+            <div id="botMessages" class="messageContainer flex flex-column"></div>
+            <div id="botSendForm" class="flex">
+                <input type="file" id="botFileInput" class="btn sec-bg" autocomplete="off" />
+                <input type="text" id="botTextInput" class="btn sec-bg" enterkeyhint="send" placeholder="Command"
+                    autocomplete="off" />
+                <button class="btn sec-bg pointer" id="voiceChatBtn">
+                    Talk
+                </button>
+            </div>
+        </section>
+    </main>
+    <footer class="sec-bg">
+        <div class="flex flex-column">
+            <img src="/logo.png" alt="urushya" width="70px" class="pointer" />
+            <a href="https://github.com/sm2742/urushya" rel="noreferrer noopener nofollow" target="_blank"
+                class="nav-link">See on github
+                <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="flex flex-column">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1260374.4905752148!2d77.24249078243692!3d28.584301288631508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1779197099902!5m2!1sen!2sin"
+                width="300" height="200" loading="lazy"></iframe>
+        </div>
+    </footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.5/peerjs.min.js"></script>
+<script type="module" src="/modules.js"></script>
+<script type="module" src="/script.js"></script>
+
+</html>

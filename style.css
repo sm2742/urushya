@@ -1,0 +1,149 @@
+:root {
+    --primary-bg: #04878b;
+    --primary-text: #c9c9c9;
+    --secondary-bg: #013c3e;
+    --secondary-text: #cecece;
+    --hover: #125f66;
+    --active: #097880;
+    --disabled: #08bdc3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.rubik-text {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.prim-bg {
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+}
+
+.sec-bg {
+    background-color: var(--secondary-bg);
+    color: var(--secondary-text);
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.messageContainer {
+    height: 30vh;
+    width: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+.btn {
+    padding: 8px 12px;
+    border: 2px solid var(--secondary-bg);
+    border-radius: 8px;
+    transition: all 100ms;
+}
+
+.btn:hover {
+    background-color: var(--hover);
+}
+
+.btn:active {
+    background-color: var(--active);
+}
+
+.btn:disabled {
+    background-color: var(--disabled);
+}
+
+.nav-link {
+    color: var(--secondary-text);
+    transition: all 100ms;
+}
+
+.nav-link:hover {
+    color: var(--hover);
+}
+
+.nav-link:active {
+    color: var(--active);
+}
+
+header {
+    padding: 1vw 2vw;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 15px 50px -20px;
+}
+
+main {
+    padding: 2vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+section {
+    padding: 2vw;
+    border: 2px solid #000;
+    border-radius: 20px;
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+        rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+video {
+    max-width: 30vw;
+    max-height: 30vh;
+}
+
+footer {
+    padding: 1vw 2vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+#notificationSpan {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid var(--primary-bg);
+    position: fixed;
+    bottom: 10vh;
+    right: 2vw;
+    max-height: 40vh;
+    z-index: 99;
+}
+
+.d-none {
+    display: none;
+}
+
+@media (max-width: 700px) {
+    video {
+        max-width: 40vw;
+        max-height: 40vh;
+    }
+
+    main,
+    footer {
+        grid-template-columns: auto;
+    }
+}
