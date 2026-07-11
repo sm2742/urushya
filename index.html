@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Urushya makes private real‑time audio and video sharing simple: start encrypted calls, share camera/audio and files, and save recordings locally or to your account. Lightweight, open‑source, and built for fast peer connections." />
+    <meta name="keywords"
+        content="real-time video chat, audio calls, private video sharing, secure file transfer, peer-to-peer calls, encrypted calls, save recordings, open source chat, lightweight video app, low latency communication" />
+    <title>Urushya — Private, Real‑Time Audio & Video Sharing</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous" />
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" />
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.5/peerjs.min.js"></script>
+    <script type="module" src="/modules.js"></script>
+    <script type="module" src="/script.js"></script>
+</head>
+
+<body class="rubik-text prim-bg">
+    <header class="sec-bg">
+        <img src="/logo.png" alt="urushya" width="70px" height="46.9px" class="pointer logo" />
+    </header>
+    <span id="notificationSpan" class="flex flex-column sec-bg d-none"></span>
+    <main>
+        <section id="login" class="flex">
+            <h1>Connect & share audio, video, and files with friends — private, low-latency calls</h1>
+            <input type="text" id="email" class="btn sec-bg" placeholder="email" autocomplete="off" />
+            <input type="password" id="password" class="btn sec-bg" placeholder="password" autocomplete="off" />
+            <button class="btn sec-bg pointer" id="loginBtn">Login</button>
+        </section>
+        <section id="checks" class="flex">
+            <label for="screenCheck" class="pointer">Screen: </label>
+            <input type="checkbox" class="pointer" id="screenCheck" />
+            <label for="audioCheck" class="pointer">Audio : </label>
+            <input type="checkbox" class="pointer" id="audioCheck" />
+            <label for="videoCheck" class="pointer">Video: </label>
+            <input type="checkbox" class="pointer" id="videoCheck" checked />
+            <label for="faceCamCheck" class="pointer">Face Camera: </label>
+            <input type="checkbox" class="pointer" id="faceCamCheck" />
+            <label for="autoSaveLocalCheck" class="pointer">Save on this device: </label>
+            <input type="checkbox" class="pointer" id="autoSaveLocalCheck" />
+            <label for="autoSaveDBCheck" class="pointer">Save on database(logged in): </label>
+            <input type="checkbox" class="pointer" id="autoSaveDBCheck" />
+            <button class="btn sec-bg pointer" id="getStreamBtn">Start</button>
+        </section>
+        <section id="connect" class="flex">
+            <input type="text" id="newID" class="btn sec-bg" placeholder="Enter your peer ID" autocomplete="off" />
+            <input type="password" id="encKey" class="btn sec-bg" value="default" placeholder="encryption key"
+                autocomplete="off" />
+            <div>My ID: <span id="myID">Not Connected</span></div>
+            <div>
+                <i class="fa-solid fa-comment"></i>:
+                <span id="connPeer">Not Connected</span>
+            </div>
+            <div>
+                <i class="fa-solid fa-video"></i>:
+                <span id="callPeer">Not Connected</span>
+            </div>
+            <input type="text" id="remoteID" class="btn sec-bg" placeholder="Enter remote ID" autocomplete="off" />
+            <button class="btn sec-bg pointer" id="connBtn" disabled> Connect </button>
+            <button class="btn sec-bg pointer" id="callBtn" disabled>Call</button>
+        </section>
+        <section id="vidplayers" class="flex justify-center">
+            <video id="myPlayer" autoplay muted></video>
+            <video id="othPlayer" autoplay></video>
+        </section>
+        <section id="chat" class="flex flex-column">
+            <div id="messages" class="list flex flex-column"></div>
+            <div id="sendForm" class="flex">
+                <input type="file" id="fileInput" class="btn sec-bg" autocomplete="off" aria-label="Share file" />
+                <input type="text" id="textInput" class="btn sec-bg" enterkeyhint="send" placeholder="Message"
+                    autocomplete="off" />
+                <button type="submit" class="btn sec-bg pointer" id="sendBtn" disabled> Send</button>
+            </div>
+        </section>
+        <section id="bot" class="flex flex-column">
+            <div id="botMessages" class="list flex flex-column"></div>
+            <div id="botSendForm" class="flex">
+                <input type="file" id="botFileInput" class="btn sec-bg" autocomplete="off" aria-label="Upload file" />
+                <input type="text" id="botTextInput" class="btn sec-bg" enterkeyhint="send" placeholder="Command"
+                    autocomplete="off" />
+                <button class="btn sec-bg pointer" id="voiceChatBtn"> Talk </button>
+            </div>
+        </section>
+        <section id="files" class="flex flex-column d-none">
+            <input type="text" id="searchFile" class="btn sec-bg" placeholder="Search files" autocomplete="off">
+            <div id="fileList" class="list flex flex-column"></div>
+        </section>
+        <section id="preview" class="flex flex-column justify-center d-none">
+            <div class="flex">
+                <input type="text" id="fileName" class="btn sec-bg" placeholder="File name" autocomplete="off">
+                <button class="btn sec-bg pointer" id="saveFileBtn"> Save </button>
+            </div>
+            <div id="previewItemBox" class="flex justify-center">
+                <textarea id="previewItem" cols="35" rows="10" class="rubik-text"></textarea>
+            </div>
+        </section>
+    </main>
+    <footer class="sec-bg">
+        <div class="flex flex-column">
+            <img src="/logo.png" alt="urushya" width="70px" height="46.9px" class="pointer logo" />
+            <a href="https://github.com/sm2742/urushya" rel="noreferrer noopener nofollow" target="_blank"
+                class="nav-link">Contribute on GitHub<i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://github.com/sm2742/urushya/blob/master/README.md" rel="noreferrer noopener nofollow"
+                target="_blank" class="nav-link">Manual<i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="flex flex-column">
+            <span>Share on:</span>
+            <div class="flex">
+                <a href="https://x.com/intent/tweet?url=https%3A%2F%2Furushya.vercel.app&text=Try%20Urushya%20%E2%80%94%20private%2C%20low-latency%20audio%20%26%20video%20sharing%20with%20file%20transfer%20and%20local%20recordings.%20Fast%2C%20lightweight%2C%20and%20open-source."
+                    class="share-twitter sec-bg" target="_blank" rel="noopener noreferrer nofollow" title="Share on X">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Furushya.vercel.app"
+                    class="share-facebook sec-bg" target="_blank" rel="noopener noreferrer nofollow"
+                    title="Share on Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Furushya.vercel.app"
+                    class="share-linkedin sec-bg" target="_blank" rel="noopener noreferrer nofollow"
+                    title="Share on LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+            </div>
+            <div class="flex">
+                <a href="https://wa.me/?text=Private%20audio%20%26%20video%20sharing%20made%20simple%20%F0%9F%8E%A7%F0%9F%93%B9%20%E2%80%94%20Urushya%20lets%20you%20make%20low-latency%20calls%2C%20transfer%20files%2C%20and%20save%20recordings%20locally.%20Open%E2%80%91source%20%26%20lightweight.%20Try%3A%20https%3A%2F%2Furushya.vercel.app"
+                    class="share-whatsapp sec-bg" target="_blank" rel="noopener noreferrer nofollow"
+                    title="Share on WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Furushya.vercel.app&media=https%3A%2F%2Furushya.vercel.app%2Fscreenshot.png&description=Meet%20Urushya%3A%20a%20lightweight%2C%20open-source%20platform%20for%20private%20real-time%20audio%2C%20video%2C%20and%20file%20sharing.%20Built%20for%20low-latency%20peer%20connections%20with%20local%20recording%20and%20easy%20file%20transfer%20%E2%80%94%20ideal%20for%20remote%20collaboration%20and%20demos."
+                    class="share-pinterest sec-bg" target="_blank" rel="noopener noreferrer nofollow"
+                    title="Share on Pinterest">
+                    <i class="fa-brands fa-pinterest-p"></i>
+                </a>
+                <a href="https://www.reddit.com/submit?url=https%3A%2F%2Furushya.vercel.app&title=Need%20a%20simple%20way%20to%20share%20audio%2C%20video%2C%20and%20files%20with%20friends%20or%20colleagues%3F%20Urushya%20makes%20private%2C%20real-time%20calls%20easy%20%E2%80%94%20low%20lag%2C%20local%20recordings%2C%20and%20open-source."
+                    class="share-reddit sec-bg" target="_blank" rel="noopener noreferrer nofollow"
+                    title="Share on Reddit">
+                    <i class="fa-brands fa-reddit-alien"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
